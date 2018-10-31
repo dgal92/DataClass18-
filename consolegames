@@ -1,0 +1,27 @@
+DROP TABLE danielagallardo.consolegames;
+
+CREATE TABLE danielagallardo.consolegames (
+	Rank INT,
+	name text,
+	platform text,
+	Year INT,
+	Genre text,
+	Publisher text,
+	Na_sales float(2),
+	Eu_sales float(2),
+	Jp_sales float(2),
+	Other_sales float(2),
+PRIMARY KEY (name, platform)
+)
+
+SELECT 
+	name,
+	SUM(na_sales + eu_sales + jp_sales + other_sales) as total_sales
+FROM
+	danielagallardo.consolegames
+WHERE
+	na_sales is not null and eu_sales is not null and jp_sales is not null and other_sales is not null
+GROUP BY
+	name
+ORDER BY
+	total_sales asc
